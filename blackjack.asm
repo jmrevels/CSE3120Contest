@@ -207,8 +207,23 @@ Tie:
     CALL WriteString
 	jmp PlayAgain
 
+Reset:
+
+
 PlayAgain:
+	MOV  edx,OFFSET PlayAgainMsg
+    CALL WriteString
+PlayAgainInput:
 	CALL ReadChar
+	CMP AL, 'P'
+	JE Reset
+	CMP AL, 'p'
+	JE Reset
+	CMP AL, 'X'
+	JE GameEnd
+	CMP AL, 'x'
+	JE GameEnd
+	JMP PlayAgainInput
 
 GameEnd:
     ; INVOKE ExitProcess,0
