@@ -10,6 +10,13 @@ INCLUDE Irvine32.inc
 	; # of aces (11's) dealt: byte [needed for reducing 11's to 1's; may not be added for simplicity]
 	Aces BYTE 0
 
+	; Strings
+	OpeningMsg BYTE "Press H to hit, or S to stand",0Dh,0Ah,0
+	WinMsg BYTE "You win!",0Dh,0Ah,0
+	LoseMsg BYTE "You lose.",0Dh,0Ah,0
+	TieMsg BYTE "You tie!",0Dh,0Ah,0
+	PlayAgainMsg BYTE "Press P to play again, or X to exit",0Dh,0Ah,0
+
 .code
 	; Proc Draw -- Draws card from Deck (generates value up to 51 & returns corresponding value in Deck)
 	;	- Should also set corresponding value in deck to -1 to indicate it is used
@@ -33,7 +40,7 @@ INCLUDE Irvine32.inc
 
 Main PROC
 	; Display opening message + controls
-	; Input: Start accepting input for hit (H) or stand (empty)
+	; Input: Start accepting input for hit (H) or stand (S)
 Input:
 	; Jump to respective code block depending on input
 	;	Hit: Draws card -> adds card to score -> inc Aces if needed -> reduce Ace to 1 if needed
