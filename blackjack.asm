@@ -56,6 +56,22 @@ Bust:
 	SUB Score, 10	; Reduces score by 10 (Changing Ace from 11 to 1)
 	JMP Input
 
+Stand:
+	CALL Draw
+	ADD DealerScore, AX
+
+	CMP DealerScore, 17
+	JB Stand		; Dealer stops drawing on 17 or above
+
+	CMP DealerScore, 21
+	JA Win			; If dealer busts, player wins
+
+	MOV AX, Score
+	CMP DealerScore, AX
+	JB Win
+	JE Tie
+	JA Lose
+	
 	; Ending Cases
 	;	Blackjack: Occurs when player score is 21 at dealing, instant win (or tie if dealer also has blackjack)
 	;	Win: Occurs when player score is higher than dealer
