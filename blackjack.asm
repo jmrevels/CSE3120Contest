@@ -77,6 +77,42 @@ INCLUDE Irvine32.inc
 		ret
 	PrintScore ENDP
 
+	PrintDealerScore PROC
+		MOV EAX, 00000000h ; Clears EAX so Score can be moved in
+		mov AX, 'D'
+		CALL WriteChar
+		mov AX, 'e'
+		CALL WriteChar
+		mov AX, 'a'
+		CALL WriteChar
+		mov AX, 'l'
+		CALL WriteChar
+		mov AX, 'e'
+		CALL WriteChar
+		mov AX, 'r'
+		CALL WriteChar
+		mov AX, ' '
+		CALL WriteChar
+		mov AX, 'S'
+		CALL WriteChar
+		mov AX, 'c'
+		CALL WriteChar
+		mov AX, 'o'
+		CALL WriteChar
+		mov AX, 'r'
+		CALL WriteChar
+		mov AX, 'e'
+		CALL WriteChar
+		mov AX, ':'
+		CALL WriteChar
+		mov AX, ' '
+		CALL WriteChar
+		MOV AX, DealerScore
+		CALL WriteDec ; Found in textbook, pg 157
+		mov AX, 10
+		CALL WriteChar
+		ret
+	PrintDealerScore ENDP
 
 Main PROC
 	; Input: Start accepting input for hit (H) or stand (S)
@@ -136,7 +172,7 @@ Stand:
 
 	CALL Draw
 	ADD DealerScore, AX
-	; CALL PrintDealerScore
+	CALL PrintDealerScore
 
 	CMP DealerScore, 17
 	JB Stand		; Dealer stops drawing on 17 or above
