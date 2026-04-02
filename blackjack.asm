@@ -86,7 +86,7 @@ Hit:
 
 	CMP Score, 21	; Jumps to bust if above 21, Win if equal to 21, and asks for input again if less than 21
 	JA Bust
-	JE Win
+	JE Stand
 	JB Input
 
 Bust: 
