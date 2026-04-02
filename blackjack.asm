@@ -149,10 +149,22 @@ Stand:
 	;	Tie: Occurs when scores are tied
 
 Win:
+	MOV  edx,OFFSET WinMsg
+    CALL WriteString
+	jmp PlayAgain
 
 Lose:
+	MOV  edx,OFFSET LoseMsg
+    CALL WriteString
+	jmp PlayAgain
 
 Tie:
+	MOV  edx,OFFSET TieMsg
+    CALL WriteString
+	jmp PlayAgain
+
+PlayAgain:
+	
 
 GameEnd:
     ; INVOKE ExitProcess,0
