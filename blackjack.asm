@@ -24,25 +24,45 @@ INCLUDE Irvine32.inc
 		XOR DX, DX
 		MOV CX, 10
 		DIV CX
-		ADD DL, 2
+		ADD DL, 2	; Only necessary when not using Deck array (shifts 0-9 range to 2-11)
 		MOV AL, DL
+		MOV AH, 00h
 
 		RET
 	Draw ENDP
 
 Main PROC
 	; Display opening message + controls
-	; Start accepting input for hit (H) or stand (empty)
+	; Input: Start accepting input for hit (H) or stand (empty)
+Input:
 	; Jump to respective code block depending on input
 	;	Hit: Draws card -> adds card to score -> inc Aces if needed -> reduce Ace to 1 if needed
 	;	Stand: Starts drawing for dealer, compares player/dealer score, jumps to ending (win/lose/draw)
 	
+Hit:
+	CALL Draw
+	ADD Score, AX
+
+	CMP Score, 21
+	JA Bust
+	JE Win
+	JB Input
+
+Bust:
+
 	; Ending Cases
 	;	Blackjack: Occurs when player score is 21 at dealing, instant win (or tie if dealer also has blackjack)
 	;	Win: Occurs when player score is higher than dealer
 	;	Lose: Occurs when player score is lower than dealer
-	;	Push: Occurs when scores are tied
+	;	Tie: Occurs when scores are tied
 
+Win:
+
+Lose:
+
+Tie:
+
+GameEnd:
     ; INVOKE ExitProcess,0
 	exit
 main ENDP
