@@ -13,6 +13,7 @@ INCLUDE Irvine32.inc
 	; Although we've used strutures, I don't believe we've used system time in class.
 	; I found everything related to system time in this program after searching on Google
 	; for some way to generate random (or at least give the illuson of random) numbers.
+	; (Exact structure was taken from textbook, pg. 397)
 	SYSTEMTIME STRUCT
 		wYear		WORD ?
 		wMonth		WORD ?
