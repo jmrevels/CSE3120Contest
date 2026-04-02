@@ -60,9 +60,6 @@ Main PROC
     CALL WriteString
 	; Input: Start accepting input for hit (H) or stand (S)
 Input:
-	MOV AL, '0'
-	ADD AL, Score
-	CALL WriteChar
 	CALL ReadChar
 	CALL WriteChar
 	CMP AL, 'h'
