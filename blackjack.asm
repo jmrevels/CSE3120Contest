@@ -54,6 +54,29 @@ INCLUDE Irvine32.inc
 		RET
 	Draw ENDP
 
+	PrintScore PROC
+		MOV EAX, 00000000h ; Clears EAX so Score can be moved in
+		mov AX, 'S'
+		CALL WriteChar
+		mov AX, 'c'
+		CALL WriteChar
+		mov AX, 'o'
+		CALL WriteChar
+		mov AX, 'r'
+		CALL WriteChar
+		mov AX, 'e'
+		CALL WriteChar
+		mov AX, ':'
+		CALL WriteChar
+		mov AX, ' '
+		CALL WriteChar
+		MOV AX, score
+		CALL WriteDec ; Found in textbook, pg 157
+		mov AX, 10
+		CALL WriteChar
+		ret
+	PrintScore ENDP
+
 
 Main PROC
 	; Input: Start accepting input for hit (H) or stand (S)
@@ -61,9 +84,7 @@ Input:
 	; Display opening message + controls
 	MOV  edx,OFFSET OpeningMsg
     CALL WriteString
-	MOV EAX, 00000000h ; Clears EAX so Score can be moved in
-	MOV AX, score
-	CALL WriteDec ; Found in textbook, pg 157
+	CALL PrintScore
 
 	CALL ReadChar
 	CALL WriteChar
@@ -81,6 +102,10 @@ Input:
 	;	Stand: Starts drawing for dealer, compares player/dealer score, jumps to ending (win/lose/draw)
 	
 Hit:
+	; New line in output
+	mov AX, 10
+	CALL WriteChar
+
 	CALL Draw
 	ADD Score, AX
 
@@ -98,6 +123,10 @@ Bust:
 	JMP Input
 
 Stand:
+	; New line in output
+	mov AX, 10
+	CALL WriteChar
+
 	CALL Draw
 	ADD DealerScore, AX
 
