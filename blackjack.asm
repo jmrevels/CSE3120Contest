@@ -28,7 +28,7 @@ INCLUDE Irvine32.inc
 	time SYSTEMTIME <>
 
 	; Strings
-	OpeningMsg BYTE "Press H to hit, or S to stand, Score: ",0Dh,0Ah,0
+	OpeningMsg BYTE "Press H to hit, or S to stand",0Dh,0Ah,0
 	WinMsg BYTE "You win!",0Dh,0Ah,0
 	LoseMsg BYTE "You lose.",0Dh,0Ah,0
 	TieMsg BYTE "You tie!",0Dh,0Ah,0

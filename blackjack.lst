@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/02/26 07:43:59
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/02/26 07:46:34
 blackjack.asm						     Page 1 - 1
 
 
@@ -53,25 +53,23 @@ blackjack.asm						     Page 1 - 1
 	   0000 0000
 
 					; Strings
- 00000049 50 72 65 73 73		OpeningMsg BYTE "Press H to hit, or S to stand, Score: ",0Dh,0Ah,0
+ 00000049 50 72 65 73 73		OpeningMsg BYTE "Press H to hit, or S to stand",0Dh,0Ah,0
 	   20 48 20 74 6F
 	   20 68 69 74 2C
 	   20 6F 72 20 53
 	   20 74 6F 20 73
-	   74 61 6E 64 2C
-	   20 53 63 6F 72
-	   65 3A 20 0D 0A
-	   00
- 00000072 59 6F 75 20 77		WinMsg BYTE "You win!",0Dh,0Ah,0
+	   74 61 6E 64 0D
+	   0A 00
+ 00000069 59 6F 75 20 77		WinMsg BYTE "You win!",0Dh,0Ah,0
 	   69 6E 21 0D 0A
 	   00
- 0000007D 59 6F 75 20 6C		LoseMsg BYTE "You lose.",0Dh,0Ah,0
+ 00000074 59 6F 75 20 6C		LoseMsg BYTE "You lose.",0Dh,0Ah,0
 	   6F 73 65 2E 0D
 	   0A 00
- 00000089 59 6F 75 20 74		TieMsg BYTE "You tie!",0Dh,0Ah,0
+ 00000080 59 6F 75 20 74		TieMsg BYTE "You tie!",0Dh,0Ah,0
 	   69 65 21 0D 0A
 	   00
- 00000094 50 72 65 73 73		PlayAgainMsg BYTE "Press P to play again, or X to exit",0Dh,0Ah,0
+ 0000008B 50 72 65 73 73		PlayAgainMsg BYTE "Press P to play again, or X to exit",0Dh,0Ah,0
 	   20 50 20 74 6F
 	   20 70 6C 61 79
 	   20 61 67 61 69
@@ -255,18 +253,18 @@ blackjack.asm						     Page 1 - 1
 					;	Tie: Occurs when scores are tied
 
  000001CD			Win:
- 000001CD  BA 00000072 R		MOV  edx,OFFSET WinMsg
+ 000001CD  BA 00000069 R		MOV  edx,OFFSET WinMsg
  000001D2  E8 00000000 E	    CALL WriteString
  000001D7  EB 3B			jmp PlayAgain
 
  000001D9			Lose:
  000001D9  E8 FFFFFE43			CALL PrintScore
- 000001DE  BA 0000007D R		MOV  edx,OFFSET LoseMsg
+ 000001DE  BA 00000074 R		MOV  edx,OFFSET LoseMsg
  000001E3  E8 00000000 E	    CALL WriteString
  000001E8  EB 2A			jmp PlayAgain
 
  000001EA			Tie:
- 000001EA  BA 00000089 R		MOV  edx,OFFSET TieMsg
+ 000001EA  BA 00000080 R		MOV  edx,OFFSET TieMsg
  000001EF  E8 00000000 E	    CALL WriteString
  000001F4  EB 1E			jmp PlayAgain
 
@@ -282,7 +280,7 @@ blackjack.asm						     Page 1 - 1
  0000020F  E9 FFFFFEFE			JMP Input
 
  00000214			PlayAgain:
- 00000214  BA 00000094 R		MOV  edx,OFFSET PlayAgainMsg
+ 00000214  BA 0000008B R		MOV  edx,OFFSET PlayAgainMsg
  00000219  E8 00000000 E	    CALL WriteString
  0000021E			PlayAgainInput:
  0000021E  E8 00000000 E		CALL ReadChar
@@ -303,7 +301,7 @@ blackjack.asm						     Page 1 - 1
  00000237  E8 00000000 E   *	    call   ExitProcess
  0000023C			main ENDP
 				END main
-Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/02/26 07:43:59
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    04/02/26 07:46:34
 blackjack.asm						     Symbols 2 - 1
 
 
@@ -397,7 +395,7 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 000000BA Para	  Public  'DATA'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 000000B1 Para	  Public  'DATA'	
 _TEXT  . . . . . . . . . . . . .	32 Bit	 0000023C Para	  Public  'CODE'	
 
 
@@ -617,7 +615,7 @@ KEY_EVENT  . . . . . . . . . . .	Number	 00000001h
 KEY_MASKS  . . . . . . . . . . .	Number	 0000001Fh   
 LEFT_ALT_PRESSED . . . . . . . .	Number	 00000002h   
 LEFT_CTRL_PRESSED  . . . . . . .	Number	 00000008h   
-LoseMsg  . . . . . . . . . . . .	Byte	 0000007D _DATA	
+LoseMsg  . . . . . . . . . . . .	Byte	 00000074 _DATA	
 MB_ABORTRETRYIGNORE  . . . . . .	Number	 00000002h   
 MB_APPLMODAL . . . . . . . . . .	Number	 00000000h   
 MB_CANCELTRYCONTINUE . . . . . .	Number	 00000006h   
@@ -651,7 +649,7 @@ OPEN_ALWAYS  . . . . . . . . . .	Number	 00000004h
 OPEN_EXISTING  . . . . . . . . .	Number	 00000003h   
 OpeningMsg . . . . . . . . . . .	Byte	 00000049 _DATA	
 PeekConsoleInput . . . . . . . .	Text   	 PeekConsoleInputA
-PlayAgainMsg . . . . . . . . . .	Byte	 00000094 _DATA	
+PlayAgainMsg . . . . . . . . . .	Byte	 0000008B _DATA	
 RIGHT_ALT_PRESSED  . . . . . . .	Number	 00000001h   
 RIGHT_CTRL_PRESSED . . . . . . .	Number	 00000004h   
 ReadConsoleInput . . . . . . . .	Text   	 ReadConsoleInputA
@@ -667,7 +665,7 @@ SetConsoleTitle  . . . . . . . .	Text   	 SetConsoleTitleA
 TAB  . . . . . . . . . . . . . .	Number	 00000009h   
 TRUE . . . . . . . . . . . . . .	Number	 00000001h   
 TRUNCATE_EXISTING  . . . . . . .	Number	 00000005h   
-TieMsg . . . . . . . . . . . . .	Byte	 00000089 _DATA	
+TieMsg . . . . . . . . . . . . .	Byte	 00000080 _DATA	
 VK_11  . . . . . . . . . . . . .	Number	 000000BDh   
 VK_12  . . . . . . . . . . . . .	Number	 000000BBh   
 VK_ADD . . . . . . . . . . . . .	Number	 0000006Bh   
@@ -747,7 +745,7 @@ VK_SUBTRACT  . . . . . . . . . .	Number	 0000006Dh
 VK_TAB . . . . . . . . . . . . .	Number	 00000009h   
 VK_UP  . . . . . . . . . . . . .	Number	 00000026h   
 WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
-WinMsg . . . . . . . . . . . . .	Byte	 00000072 _DATA	
+WinMsg . . . . . . . . . . . . .	Byte	 00000069 _DATA	
 WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
 WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
 black  . . . . . . . . . . . . .	Number	 00000000h   
