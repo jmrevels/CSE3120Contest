@@ -40,8 +40,21 @@ INCLUDE Irvine32.inc
 
 Main PROC
 	; Display opening message + controls
+	MOV  edx,OFFSET OpeningMsg
+    CALL WriteString
 	; Input: Start accepting input for hit (H) or stand (S)
 Input:
+	CALL ReadChar
+	CALL WriteChar
+	CMP AL, 'h'
+	JE Hit
+	CMP AL, 'H'
+	JE Hit
+	CMP AL, 's'
+	JE Stand
+	CMP AL, 'S'
+	JE Stand
+	JMP Input
 	; Jump to respective code block depending on input
 	;	Hit: Draws card -> adds card to score -> inc Aces if needed -> reduce Ace to 1 if needed
 	;	Stand: Starts drawing for dealer, compares player/dealer score, jumps to ending (win/lose/draw)
@@ -95,4 +108,4 @@ GameEnd:
     ; INVOKE ExitProcess,0
 	exit
 main ENDP
-END
+END main
