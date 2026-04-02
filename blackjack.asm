@@ -14,6 +14,22 @@ INCLUDE Irvine32.inc
 	; Proc Draw -- Draws card from Deck (generates value up to 51 & returns corresponding value in Deck)
 	;	- Should also set corresponding value in deck to -1 to indicate it is used
 	;	- Should jump back to start if -1 is drawn 
+	Draw PROC
+		; I don't believe this was taught in class. I found it on StackOverflow as a way to easily 
+		; do psuedo-random number generation in asm using system time
+		MOV AH, 00h
+		INT 1Ah 
+
+		MOV AX, DX
+		XOR DX, DX
+		MOV CX, 10
+		DIV CX
+		ADD DL, 2
+		MOV AL, DL
+
+		RET
+	Draw ENDP
+
 Main PROC
 	; Display opening message + controls
 	; Start accepting input for hit (H) or stand (empty)
