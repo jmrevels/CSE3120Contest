@@ -10,6 +10,22 @@ INCLUDE Irvine32.inc
 	; # of aces (11's) dealt: byte [needed for reducing 11's to 1's; may not be added for simplicity]
 	Aces BYTE 0
 
+	; Although we've used strutures, I don't believe we've used system time in class.
+	; I found everything related to system time in this program after searching on Google
+	; for some way to generate random (or at least give the illuson of random) numbers.
+	SYSTEMTIME STRUCT
+		wYear		WORD ?
+		wMonth		WORD ?
+		wDayOfWeek	WORD ?
+		wDay		WORD ?
+		wHour		WORD ?
+		wMinute		WORD ?
+		wSecond		WORD ?
+		wMilliseconds	WORD ?
+	SYSTEMTIME ENDS
+
+	time SYSTEMTIME <>
+
 	; Strings
 	OpeningMsg BYTE "Press H to hit, or S to stand",0Dh,0Ah,0
 	WinMsg BYTE "You win!",0Dh,0Ah,0
@@ -25,7 +41,7 @@ INCLUDE Irvine32.inc
 		; I don't believe this was taught in class. I found it on StackOverflow as a way to easily 
 		; do psuedo-random number generation in asm using system time
 		MOV AH, 00h
-		INT 1Ah 
+		INVOKE GetLocalTime, ADDR time
 
 		MOV AX, DX
 		XOR DX, DX
@@ -44,6 +60,9 @@ Main PROC
     CALL WriteString
 	; Input: Start accepting input for hit (H) or stand (S)
 Input:
+	MOV AL, '0'
+	ADD AL, Score
+	CALL WriteChar
 	CALL ReadChar
 	CALL WriteChar
 	CMP AL, 'h'
