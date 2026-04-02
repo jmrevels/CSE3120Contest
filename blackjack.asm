@@ -70,7 +70,7 @@ INCLUDE Irvine32.inc
 		CALL WriteChar
 		mov AX, ' '
 		CALL WriteChar
-		MOV AX, score
+		MOV AX, Score
 		CALL WriteDec ; Found in textbook, pg 157
 		mov AX, 10
 		CALL WriteChar
@@ -108,11 +108,18 @@ Hit:
 
 	CALL Draw
 	ADD Score, AX
+	CMP AX, 11
+	JE AddAce
+Hit2:
 
 	CMP Score, 21	; Jumps to bust if above 21, Win if equal to 21, and asks for input again if less than 21
 	JA Bust
 	JE Stand
 	JB Input
+
+AddAce:
+	inc Aces
+	jmp Hit2
 
 Bust: 
 	CMP Aces, 0
@@ -129,6 +136,7 @@ Stand:
 
 	CALL Draw
 	ADD DealerScore, AX
+	; CALL PrintDealerScore
 
 	CMP DealerScore, 17
 	JB Stand		; Dealer stops drawing on 17 or above
@@ -164,7 +172,7 @@ Tie:
 	jmp PlayAgain
 
 PlayAgain:
-	
+	CALL ReadChar
 
 GameEnd:
     ; INVOKE ExitProcess,0
