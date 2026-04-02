@@ -150,7 +150,7 @@ Hit2:
 
 	CMP Score, 21	; Jumps to bust if above 21, Win if equal to 21, and asks for input again if less than 21
 	JA Bust
-	JE Stand
+	JE BJ
 	JB Input
 
 AddAce:
@@ -165,6 +165,8 @@ Bust:
 	SUB Score, 10	; Reduces score by 10 (Changing Ace from 11 to 1)
 	JMP Input
 
+BJ:
+	CALL PrintScore
 Stand:
 	; New line in output
 	mov AX, 10
@@ -198,6 +200,7 @@ Win:
 	jmp PlayAgain
 
 Lose:
+	CALL PrintScore
 	MOV  edx,OFFSET LoseMsg
     CALL WriteString
 	jmp PlayAgain
@@ -208,7 +211,10 @@ Tie:
 	jmp PlayAgain
 
 Reset:
-
+	MOV Score, 0
+	MOV DealerScore, 0
+	MOV Aces, 0
+	JMP Input
 
 PlayAgain:
 	MOV  edx,OFFSET PlayAgainMsg
