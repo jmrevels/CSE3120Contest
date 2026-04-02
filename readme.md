@@ -9,3 +9,6 @@ The program can either be ran in Visual Studio in Project32, or by compiling it 
 
 ### Compilation Requirements:
 This program is designed to be compiled and ran on a Windows machine with Irvine32.inc. This is because the program uses both calls from Irvine32.inc, as well as a Windows system call to get the local time.
+
+Pictured: Compilation command and output using provided asm_CSE3120.bat file
+<img width="1092" height="96" alt="image" src="https://github.com/user-attachments/assets/e6f72e1a-b667-4050-98a3-3721cce3bd99" />
