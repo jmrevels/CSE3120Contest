@@ -43,12 +43,18 @@ Hit:
 	CALL Draw
 	ADD Score, AX
 
-	CMP Score, 21
+	CMP Score, 21	; Jumps to bust if above 21, Win if equal to 21, and asks for input again if less than 21
 	JA Bust
 	JE Win
 	JB Input
 
-Bust:
+Bust: 
+	CMP Aces, 0
+	JE Lose		; Loses if no aces can be reduced
+	
+	DEC Aces
+	SUB Score, 10	; Reduces score by 10 (Changing Ace from 11 to 1)
+	JMP Input
 
 	; Ending Cases
 	;	Blackjack: Occurs when player score is 21 at dealing, instant win (or tie if dealer also has blackjack)
