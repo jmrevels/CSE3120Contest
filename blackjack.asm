@@ -27,7 +27,7 @@ INCLUDE Irvine32.inc
 	time SYSTEMTIME <>
 
 	; Strings
-	OpeningMsg BYTE "Press H to hit, or S to stand",0Dh,0Ah,0
+	OpeningMsg BYTE "Press H to hit, or S to stand, Score: ",0Dh,0Ah,0
 	WinMsg BYTE "You win!",0Dh,0Ah,0
 	LoseMsg BYTE "You lose.",0Dh,0Ah,0
 	TieMsg BYTE "You tie!",0Dh,0Ah,0
@@ -54,12 +54,17 @@ INCLUDE Irvine32.inc
 		RET
 	Draw ENDP
 
+
 Main PROC
+	; Input: Start accepting input for hit (H) or stand (S)
+Input:
 	; Display opening message + controls
 	MOV  edx,OFFSET OpeningMsg
     CALL WriteString
-	; Input: Start accepting input for hit (H) or stand (S)
-Input:
+	MOV EAX, 00000000h ; Clears EAX so Score can be moved in
+	MOV AX, score
+	CALL WriteDec ; Found in textbook, pg 157
+
 	CALL ReadChar
 	CALL WriteChar
 	CMP AL, 'h'
